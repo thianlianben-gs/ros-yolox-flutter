@@ -7,7 +7,8 @@ import 'package:ros_yolox_app/components/TextButtonComponent.dart';
 import 'package:roslibdart/roslibdart.dart';
 
 class DisplayPage extends StatefulWidget {
-  const DisplayPage({super.key});
+  final String ip_address;
+  const DisplayPage({super.key,  required this.ip_address});
 
   @override
   State<DisplayPage> createState() => _DisplayPageState();
@@ -19,12 +20,14 @@ class _DisplayPageState extends State<DisplayPage> {
   late Topic publisher_chatter;
   Uint8List? _latestImageData;
 
+  
+
   StreamController<Uint8List> imageStreamController =
       StreamController<Uint8List>();
 
   @override
   void initState() {
-    ros = Ros(url: 'ws://10.0.2.2:9090');
+    ros = Ros(url: widget.ip_address + ':9090');
     chatter = Topic(
         ros: ros,
         name: '/image_publisher',

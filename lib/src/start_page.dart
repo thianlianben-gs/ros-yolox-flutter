@@ -11,6 +11,8 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
+  final TextEditingController ip_controller = TextEditingController();
+
   @override
   void initState() {
     //set initial Orientation to landscape
@@ -19,6 +21,13 @@ class _StartPageState extends State<StartPage> {
       DeviceOrientation.landscapeRight,
     ]);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    ip_controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,14 +48,27 @@ class _StartPageState extends State<StartPage> {
               SizedBox(
                 height: 20,
               ),
+              TextField(
+                controller: ip_controller,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'IP hostname of your machine',
+                  hintText: 'Enter 000.000.00.0.0',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
               TextButtonComponent(
                   buttonText: "Start",
                   navigatePage: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DisplayPage()),
-                    );
+                    if (ip_controller.text != "") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DisplayPage(ip_address: ip_controller.text,)),
+                      );
+                    }
                   })
             ],
           ),
