@@ -22,54 +22,41 @@ flutter sdk-path
 
 - Step 2 : Flutter relies on a full installation of Android Studio to supply its Android platform dependencies.
   
-  - Install Java JDK on Ubuntu 20.04
+  - Here the link is https://vitux.com/how-to-install-android-studio-on-ubuntu/
+ 
+- Step 3 : Clone the project and configure it in VSCode.
+
   ```bash
-  sudo apt install openjdk-11-jdk
+  git clone https://github.com/thianlianben-gs/ros-yolox-flutter.git
   ```
-  - Add android-studio repository
-  ```bash
-  sudo add-apt-repository ppa:maarten-fonville/android-studio
-  ```
-  - Update the apt-cache
-  ```bash
-  sudo apt update
-  ```
-  - Install Android Studio
-  ```bash
-  sudo apt install android-studio
-  ```
-  - Launch Android Studio
+
+  - Open the project in VS code and Make installation Flutter in Extensions (VS code)
+ 
+- Step 4 : Install Android SDK Command-line tools in SDK Manager menu
+
+  - Launch it using the application launcher search bar and you will see Welcome Screen Page and There is one option which is **Open Exiting Project** and select the project that you clone it recently.
+  - Go to Tools -> SDK Manager -> SDK Tools Tabs
+  - Check Android SDK Command-Line tools (latest) and click apply.
+
+- Step 5 : Build Android Emulator for testing application
+
+  - Go to Tools -> Device Manager
+  - You will see the devices you installed. If there is no any device , you can create one device.
+  - Suppose you have already created one device and Click play icon.
+  - Note: Don't close the emulator after running because we are going to run flutter project on it. After running, you can close it whatever you want. 
+ 
+- Step 6 : Executing flutter project on emulator
+
+  - Open terminal in VS code which is already opened the project file.
+  - In terminal, run
     
-    ![image](https://github.com/thianlianben-gs/ros-yolox-flutter/assets/142369449/bced3869-6c4a-43d2-bbf6-7bc0fab9b081)
+    ```bash
+    flutter doctor -v
+    ```
+  - You will see Connected devices.
+  - Lets start execution.
 
-  - Click on the android studio icon and configure the setting of the android studio on the Ubuntu 20.04 system. Select don’t import settings as follows:
-
-    ![image](https://github.com/thianlianben-gs/ros-yolox-flutter/assets/142369449/4fd90508-6eea-4038-864b-71020a2edad6)
-
-  - It will search for available SDK components on the following screen:
-
-    ![image](https://github.com/thianlianben-gs/ros-yolox-flutter/assets/142369449/52a17e36-f337-48d0-906d-a268ed52f769)
-
-  - Now, the Android setup wizard will start on your system. Click on Next as follows:
-
-    ![image](https://github.com/thianlianben-gs/ros-yolox-flutter/assets/142369449/0ded9bb6-06b9-43bc-beef-08016b26e907)
-
-  - Choose the install type Standard or Custom. Choose the Standard option and click on Next button as follows:
-
-    ![image](https://github.com/thianlianben-gs/ros-yolox-flutter/assets/142369449/11721a57-f162-4b1b-b42d-33d970df16c7)
-
-  - Now, you need to select the user interface theme. Choose Light and click on Next.
-  - You can also choose another theme for the android studio as well. If you want to change any setting the click on the ‘Previous’ button. Otherwise, review the wizard setup settings and click on Next.
+    ```bash
+    flutter run
+    ```
     
-    ![image](https://github.com/thianlianben-gs/ros-yolox-flutter/assets/142369449/6e50621f-ab14-4de6-9a48-a6eb2163bdd2)
-
-  - Now, formal emulator settings will display on the dialog window. The necessary components will begin to download on your system as follows. Click on the Finish button.
-
-    ![image](https://github.com/thianlianben-gs/ros-yolox-flutter/assets/142369449/521d323c-c7ab-4502-b366-cb763c95d255)
-
-  - Once the download is complete, now you will click on Finish. Now, the welcomeScreen window will display on your system from where you can use android studio on your system. Choose option Start a new android studio project to create a new application or Open existing project. 
-
-    
-
-
-
