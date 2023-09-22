@@ -1,16 +1,8 @@
-# ros_yolox_app
+# Flutter + ROS2 + YOLOX
 
-A new Flutter project.
+## Integrating ROS 2, YOLOX, and Flutter for Real-Time Object Detection and Communication
 
-## Getting Started
+This project that involves communication between ROS 2 (Robot Operating System 2), YOLOX (a real-time object detection model), and a Flutter application to send image data is a complex and multi-step process. Below, I'll outline the general steps and components involved in such a project:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Install and set up Integration of ROS2 and YOLOX. Here the doc is https://github.com/thianlianben-gs/ros2-yolox-python
+- Set up a development environment for Flutter and develop application
