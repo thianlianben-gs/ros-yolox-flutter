@@ -27,7 +27,7 @@ class _DisplayPageState extends State<DisplayPage> {
 
   @override
   void initState() {
-    ros = Ros(url: widget.ip_address + ':9090');
+    ros = Ros(url: "ws://" + widget.ip_address + ':9090');
     chatter = Topic(
         ros: ros,
         name: '/image_publisher',
