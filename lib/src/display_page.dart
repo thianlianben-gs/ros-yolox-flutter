@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,8 +8,8 @@ import 'package:ros_yolox_app/components/TextButtonComponent.dart';
 import 'package:roslibdart/roslibdart.dart';
 
 class DisplayPage extends StatefulWidget {
-  final String ip_address;
-  const DisplayPage({super.key,  required this.ip_address});
+  final String ipAddress;
+  const DisplayPage({super.key, required this.ipAddress});
 
   @override
   State<DisplayPage> createState() => _DisplayPageState();
@@ -20,21 +21,19 @@ class _DisplayPageState extends State<DisplayPage> {
   late Topic publisher_chatter;
   Uint8List? _latestImageData;
 
-  
-
   StreamController<Uint8List> imageStreamController =
       StreamController<Uint8List>();
 
   @override
   void initState() {
-    ros = Ros(url: "ws://" + widget.ip_address + ':9090');
+    ros = Ros(url: "ws://${widget.ipAddress}:9090");
     chatter = Topic(
         ros: ros,
         name: '/image_publisher',
         type: "sensor_msgs/CompressedImage",
         reconnectOnClose: true,
-        queueLength: 10,
-        queueSize: 10);
+        queueLength: 20,
+        queueSize: 20);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -44,15 +43,11 @@ class _DisplayPageState extends State<DisplayPage> {
         name: '/end_system',
         type: 'std_msgs/String',
         reconnectOnClose: true,
-        queueLength: 10,
-        queueSize: 10);
+        queueLength: 20,
+        queueSize: 20);
     super.initState();
     ros.connect();
     initConnection();
-    // Timer(const Duration(seconds: 1), () async {
-    //   await chatter.subscribe(subscribeHandler);
-    //   // await chatter.subscribe();
-    // });
   }
 
   void initConnection() async {
@@ -94,8 +89,8 @@ class _DisplayPageState extends State<DisplayPage> {
                         height: 50,
                         alignment: Alignment.centerLeft,
                         width: double.infinity,
-                        child: Text("ROS + Flutter Object Detection"),
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        child: const Text("ROS + Flutter Object Detection"),
                       ),
                     ),
                     Expanded(
@@ -103,7 +98,7 @@ class _DisplayPageState extends State<DisplayPage> {
                         children: [
                           Container(
                             // width: double.infinity,
-                            padding: EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: StreamBuilder(
                               stream: imageStreamController.stream,
                               builder: ((context, snapshot) {
@@ -113,35 +108,41 @@ class _DisplayPageState extends State<DisplayPage> {
                                 }
 
                                 if (!snapshot.hasData) {
+                                  print("Print : snapshot does not have data");
                                   return const Center(
                                       child: CircularProgressIndicator());
                                 }
 
-                                if (snapshot.hasData) {
+                                // if (snapshot.hasData) {
+                                else {
+                                  print("Print : snapshot  have data");
                                   final imageDataToShow =
                                       _latestImageData ?? snapshot.data;
                                   return Center(
-                                      child: Image.memory(imageDataToShow!));
+                                      child: Image.memory(imageDataToShow!, gaplessPlayback: true,));
                                 }
-                                return Center(
-                                  child: Text("Hello"),
-                                );
+                                // return const Center(
+                                //   child: Text("Hello"),
+                                // );
                               }),
                             ),
                           ),
                           Container(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 children: [
                                   TextButtonComponent(
                                       buttonText: "End",
                                       navigatePage: () async {
-                                        Map<String, dynamic> end_json = {
+                                        Map<String, dynamic> endJson = {
                                           "data": "end_system"
                                         };
                                         await publisher_chatter
-                                            .publish(end_json);
-                                        print("publishing end system");
+                                            .publish(endJson);
+
+                                        print("Exit from flutter");
+                                        developer.log(
+                                            "Exit Program From Flutter app");
                                         Navigator.pop(context);
                                       })
                                 ],
